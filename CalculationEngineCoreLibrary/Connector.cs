@@ -32,9 +32,11 @@ namespace CalculationEngineCoreLibrary
             };
             string consumerTag = channel.BasicConsume("Test", false, consumer);
             
-            
-
         }
 
+        public static int add(int a, int b)
+        {
+            return a + b;
+        }
     }
 }
