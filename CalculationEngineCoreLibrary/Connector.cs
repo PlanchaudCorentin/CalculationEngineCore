@@ -50,10 +50,12 @@ namespace CalculationEngineCoreLibrary
                 if (md.TryGetValue(String.Concat(d.MacAddress, d.DeviceType), out d2))
                 {
                     d2.CValue = Math.Round((d2.CValue + d.MetricValue) / 2, 2);
+                    d2.Timestamp = d.MetricDate;
                 }
                 else
                 {
-                    md[String.Concat(d.MacAddress, d.DeviceType)] = new  DeviceStats(d.MacAddress, d.DeviceType, d.MetricValue);
+                    md[String.Concat(d.MacAddress, d.DeviceType)] = 
+                        new  DeviceStats(d.MacAddress, d.DeviceType, d.MetricValue, d.MetricDate);
                 }
                 
                 Console.WriteLine("{0} {1} {2}", md[String.Concat(d.MacAddress, d.DeviceType)].MacAddress, 
@@ -67,6 +69,7 @@ namespace CalculationEngineCoreLibrary
         public void interupt()
         {
             Console.ReadLine();
+            Persist.persistData(md);
             Console.WriteLine("Results");
             md.ToList().ForEach(x => Console.WriteLine("{0} : {1}", x.Key, x.Value.CValue));
             channel.Close();

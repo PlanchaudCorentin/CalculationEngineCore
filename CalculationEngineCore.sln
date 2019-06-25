@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculationEngineCoreLibrar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CECLibraryTest", "CECLibraryTest\CECLibraryTest.csproj", "{F96581C5-C566-4B8C-B9F9-F4DF91B2D010}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculationEngineDBC", "CalculationEngineDBC\CalculationEngineDBC.csproj", "{1EF65B07-F83B-4777-A336-BF7FA959DDB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{F96581C5-C566-4B8C-B9F9-F4DF91B2D010}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F96581C5-C566-4B8C-B9F9-F4DF91B2D010}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F96581C5-C566-4B8C-B9F9-F4DF91B2D010}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EF65B07-F83B-4777-A336-BF7FA959DDB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EF65B07-F83B-4777-A336-BF7FA959DDB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EF65B07-F83B-4777-A336-BF7FA959DDB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EF65B07-F83B-4777-A336-BF7FA959DDB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
