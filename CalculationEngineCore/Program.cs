@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using CalculationEngineCoreLibrary;
 
 namespace CalculationEngineCore
@@ -8,6 +9,7 @@ namespace CalculationEngineCore
         static void Main(string[] args)
         {
             Connector conn = new Connector("admin", "devproject", "/", "192.168.43.88");
+            conn.startConsume("Test");
         }
     }
 }
