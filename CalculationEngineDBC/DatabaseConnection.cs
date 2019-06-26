@@ -57,6 +57,7 @@ namespace CalculationEngineDBC
             {
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
+                Console.WriteLine("Persisted");
             }
             catch (MySqlException e)
             {
