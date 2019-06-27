@@ -60,6 +60,7 @@ namespace CalculationEngineCoreLibrary
                         try
                         {
                             persistT.Start();
+                            md.Clear();
                         }
                         catch (ThreadStateException e)
                         {
