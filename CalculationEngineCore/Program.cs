@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using CalculationEngineCoreLibrary;
+﻿using CalculationEngineCoreLibrary;
 
 namespace CalculationEngineCore
 {
