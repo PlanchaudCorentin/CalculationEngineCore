@@ -6,6 +6,7 @@ namespace CalculationEngineCoreLibrary
         private string deviceType;
         private double cValue;
         private string timestamp;
+        private int iteration;
 
         public DeviceStats(string macAddress, string deviceType, double cValue, string timestamp)
         {
@@ -13,6 +14,7 @@ namespace CalculationEngineCoreLibrary
             this.deviceType = deviceType;
             this.cValue = cValue;
             this.timestamp = timestamp;
+            iteration = 1;
         }
 
         public string MacAddress
@@ -37,6 +39,12 @@ namespace CalculationEngineCoreLibrary
         {
             get => timestamp;
             set => timestamp = value;
+        }
+
+        public int Iteration
+        {
+            get => iteration;
+            set => iteration = value;
         }
     }
 }

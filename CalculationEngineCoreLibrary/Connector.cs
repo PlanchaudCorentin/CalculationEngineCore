@@ -18,6 +18,7 @@ namespace CalculationEngineCoreLibrary
         private Dictionary<string, DeviceStats> md;
         private Del d;
         private string currentHour = null;
+        private int received = 0;
 
         public Connector(string user, string pass, string vhost, string hostname)
         {
@@ -37,10 +38,11 @@ namespace CalculationEngineCoreLibrary
 
         public void startConsume(string queue)
         {
-            //string pattern = @"(?<=T.{3}).{2}";
+            
             string pattern = @"(?<=T).{2}";
             Regex regex = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
             channel.QueueDeclare(queue, true, false, false);
+            
             Thread t = new Thread(new ThreadStart(d));
             t.Start();
             var consumer = new EventingBasicConsumer(channel);
@@ -52,10 +54,8 @@ namespace CalculationEngineCoreLibrary
                 if (regex.Match(d.MetricDate).Groups[0].Value != currentHour)
                 {
                     currentHour = regex.Match(d.MetricDate).Groups[0].Value;
-                    //Console.WriteLine("Count: {0}", md.Count);
                     if (md.Count > 0)
                     {
-                        //Console.WriteLine("########################################");
                         Thread persistT = new Thread(() => persist(md));
                         try
                         {
@@ -79,28 +79,25 @@ namespace CalculationEngineCoreLibrary
                 DeviceStats d2;
                 if (md.TryGetValue(String.Concat(d.MacAddress, d.DeviceType), out d2))
                 {
-                    d2.CValue = Math.Round((d2.CValue + d.MetricValue) / 2, 2);
+                    d2.CValue = getMeanFromPreviousIteration(d2.CValue, d.MetricValue, d2.Iteration);
                     d2.Timestamp = d.MetricDate;
+                    d2.Iteration++;
                 }
                 else
                 {
                     md[String.Concat(d.MacAddress, d.DeviceType)] = 
                         new  DeviceStats(d.MacAddress, d.DeviceType, d.MetricValue, d.MetricDate);
                 }
-                
-                //Console.WriteLine(regex.Match(d.MetricDate).Groups[0].Value);
+                received++;
                 channel.BasicAck(ea.DeliveryTag, false);
             };
-            string consumerTag = channel.BasicConsume("Test", false, consumer);
+            string consumerTag = channel.BasicConsume(queue, false, consumer);
         }
         
         public void interupt()
         {
             Console.ReadLine();
-            //Persist.persistData(md);
-            Console.WriteLine("Count: {0}", md.Count);
-            Console.WriteLine("Results");
-            md.ToList().ForEach(x => Console.WriteLine("{0} : {1}", x.Key, x.Value.CValue));
+            Console.WriteLine("Count: {0} messages received", received);
             channel.Close();
             conn.Close();
         }
@@ -110,9 +107,9 @@ namespace CalculationEngineCoreLibrary
             Persist.persistData(dictionary);
         }
 
-        public static int add(int a, int b)
+        public static double getMeanFromPreviousIteration(double previousMean, double receivedValue, int iteration)
         {
-            return a + b;
+            return Math.Round((previousMean * iteration + receivedValue) / (iteration + 1), 2);
         }
     }
 }

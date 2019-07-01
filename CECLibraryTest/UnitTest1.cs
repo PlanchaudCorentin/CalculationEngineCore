@@ -9,8 +9,13 @@ namespace CECLibraryTest
         [Fact]
         public void Test1()
         {
-            Assert.True(Connector.add(1, 2) == 3);
-            Assert.False(Connector.add(10, 9) == 109);
+            double a = Connector.getMeanFromPreviousIteration((1.0 + 2.0) / 2.0, 3, 2);
+            double b = Math.Round((1.0 + 2 + 3) / 3, 2);
+            Assert.True(a == b);
+            double c = Math.Round(((1.0 + 2) / 2 + 3) / 2, 2);
+            double d = Math.Round((1.0 + 2 + 3) / 3, 2);
+            Assert.False(c == d);
+            
         }
     }
 }
